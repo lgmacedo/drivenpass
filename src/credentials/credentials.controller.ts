@@ -11,7 +11,7 @@ export class CredentialsController {
   constructor(private readonly credentialsService: CredentialsService) {}
 
   @Post()
-  signUp(@Body() newCredentialDto: NewCredentialDTO, @User() user: UserPrisma) {
+  createCredential(@Body() newCredentialDto: NewCredentialDTO, @User() user: UserPrisma) {
     return this.credentialsService.newCredential(user, newCredentialDto);
   }
 

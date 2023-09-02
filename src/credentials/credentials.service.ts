@@ -1,4 +1,10 @@
-import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  ForbiddenException,
+  Inject,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { NewCredentialDTO } from './dtos/new-credential.dto';
 import { User } from '@prisma/client';
 import { CredentialsRepository } from './credentials.repository';
@@ -17,7 +23,7 @@ export class CredentialsService {
       newCredentialDto.title,
     );
     if (credentialAlreadyExists)
-      throw new HttpException('Credential already exists', HttpStatus.CONFLICT);
+      throw new ConflictException('Credential already exists');
     this.credentialsRepository.insertNewCredential(user.id, newCredentialDto);
   }
 
@@ -41,13 +47,9 @@ export class CredentialsService {
 
   async checkCredential(id: number, userId: number) {
     const credential = await this.credentialsRepository.getOneCredential(id);
-    if (!credential)
-      throw new HttpException('Credential not found', HttpStatus.NOT_FOUND);
+    if (!credential) throw new NotFoundException('Credential not found');
     if (credential.userId !== userId)
-      throw new HttpException(
-        'Credential does not belong to user',
-        HttpStatus.FORBIDDEN,
-      );
+      throw new ForbiddenException('Credential does not belong to user');
     return credential;
   }
 

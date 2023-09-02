@@ -11,10 +11,11 @@ datasource db {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
-  email    String @unique
-  password String
+  id          Int          @id @default(autoincrement())
+  email       String       @unique
+  password    String
   credentials Credential[]
+  notes       Note[]
 
   @@map("users")
 }
@@ -32,3 +33,13 @@ model Credential {
   @@map("credentials")
 }
 
+model Note {
+  id     Int    @id @default(autoincrement())
+  title  String
+  note   String
+  userId Int
+  user   User   @relation(fields: [userId], references: [id])
+
+  @@unique([userId, title])
+  @@map("notes")
+}
