@@ -35,9 +35,6 @@ export class UsersService {
   async eraseUser(user: User, password: string) {
     const valid = await bcrypt.compare(password, user.password);
     if (!valid) throw new UnauthorizedException('Password not valid.');
-    await this.usersRepository.deleteAllCredentialsFromUser(user.id);
-    await this.usersRepository.deleteAllNotesFromUser(user.id);
-    await this.usersRepository.deleteAllCardsFromUser(user.id);
-    await this.usersRepository.deleteUser(user.id);
+    await this.usersRepository.eraseUser(user.id);
   }
 }
