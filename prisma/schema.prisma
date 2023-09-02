@@ -16,6 +16,7 @@ model User {
   password    String
   credentials Credential[]
   notes       Note[]
+  cards       Card[]
 
   @@map("users")
 }
@@ -42,4 +43,21 @@ model Note {
 
   @@unique([userId, title])
   @@map("notes")
+}
+
+model Card {
+  id         Int     @id @default(autoincrement())
+  title      String
+  number     String
+  name       String
+  code       String
+  expiration String
+  password   String
+  virtual    String
+  type       String
+  userId     Int
+  user       User    @relation(fields: [userId], references: [id])
+
+  @@unique([userId, title])
+  @@map("cards")
 }
