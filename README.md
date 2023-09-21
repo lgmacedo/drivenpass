@@ -6,6 +6,37 @@ API utilizada no gerenciador de credenciais, notas e cartões de pagamento de no
 - Login
 - Autenticação do usuário
 - Gerenciamento seguro e criptografado de credenciais, notas e cartões de pagamento
+
+## Como rodar
+
+Primeiro, é necessário instalar todas as dependências necessárias para essa aplicação através do Node Package Manager:
+
+```bash
+$ npm install
+```
+
+Esse comando deve ser feito na raiz do projeto.
+
+Para rodar a aplicação:
+
+```bash
+# development
+$ npm run start
+
+# watch mode
+$ npm run start:dev
+
+# production mode
+$ npm run start:prod
+```
+
+## Como rodar os testes unitários
+
+Após instalar todas as dependências:
+
+```bash
+npm run test:e2e
+```
   
 ## Stack
 
